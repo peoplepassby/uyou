@@ -3,7 +3,7 @@ name: Deploy Demo
 on:
   push:
     branches:
-      - master  
+      - main  
     paths-ignore: 
       - README.md
       - LICENSE
@@ -21,7 +21,7 @@ jobs:
           FOLDER: ./ 
           SERVER_IP: ${{ secrets.SERVER_HOST }}    
           USERNAME: ${{ secrets.SERVER_USERNAME }} 
-          SERVER_DESTINATION: /github.com/peoplepassby/uyou
+          SERVER_DESTINATION: /public
       - name: Execute Script 
         uses: appleboy/ssh-action@master
         with:
@@ -30,6 +30,6 @@ jobs:
           key: ${{ secrets.SERVER_KEY }}
           
           script: |
-            cd /github.com/peoplepassby/uyou
+            cd /public
             composer update
 
