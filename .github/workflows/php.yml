@@ -21,8 +21,8 @@ jobs:
           FOLDER: ./ 
           SERVER_IP: ${{ secrets.SERVER_HOST }}    
           USERNAME: ${{ secrets.SERVER_USERNAME }} 
-          SERVER_DESTINATION: /phpstudy_pro/WWW/backend.uyou.com
-      - name: Execute Script # 第三步，执行安装依赖
+          SERVER_DESTINATION: /www/wwwroot/apidoc.demo/
+      - name: Execute Script 
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SERVER_HOST }} 
@@ -30,6 +30,6 @@ jobs:
           key: ${{ secrets.SERVER_KEY }}
           
           script: |
-            cd /phpstudy_pro/WWW/backend.uyou.com
+            cd /www/wwwroot/apidoc.demo/
             composer update
 
