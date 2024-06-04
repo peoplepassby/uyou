@@ -1,0 +1,35 @@
+name: Deploy Demo 
+
+on:
+  push:
+    branches:
+      - master  
+    paths-ignore: 
+      - README.md
+      - LICENSE
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/checkout@v2 
+      - name: Deploy to Server    
+        uses: AEnterprise/rsync-deploy@v1.0
+        env:
+          DEPLOY_KEY: ${{ secrets.SERVER_KEY }}   
+          ARGS: -avz --delete --exclude='*.env' --exclude='runtime/'
+          SERVER_PORT: ${{ secrets.SERVER_PORT }}  
+          FOLDER: ./ 
+          SERVER_IP: ${{ secrets.SERVER_HOST }}    
+          USERNAME: ${{ secrets.SERVER_USERNAME }} 
+          SERVER_DESTINATION: /phpstudy_pro/WWW/backend.uyou.com
+      - name: Execute Script # 第三步，执行安装依赖
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }} 
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SERVER_KEY }}
+          
+          script: |
+            cd /phpstudy_pro/WWW/backend.uyou.com
+            composer update
+
