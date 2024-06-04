@@ -21,7 +21,7 @@ jobs:
           FOLDER: ./ 
           SERVER_IP: ${{ secrets.SERVER_HOST }}    
           USERNAME: ${{ secrets.SERVER_USERNAME }} 
-          SERVER_DESTINATION: /www/wwwroot/apidoc.demo/
+          SERVER_DESTINATION: /github.com/peoplepassby/uyou
       - name: Execute Script 
         uses: appleboy/ssh-action@master
         with:
@@ -30,6 +30,6 @@ jobs:
           key: ${{ secrets.SERVER_KEY }}
           
           script: |
-            cd /www/wwwroot/apidoc.demo/
+            cd /github.com/peoplepassby/uyou
             composer update
 
